@@ -14,7 +14,7 @@ export class SalesOperationController {
     }
 
     @Get(':id')
-    async findOneSalesOperation(@Param("id") id : string) {
+    async findOneSalesOperation(@Param("id") id : number) {
         return this.salesOperationService.findOneSalesOperation(id)
     }
 }
