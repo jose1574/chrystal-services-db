@@ -7,7 +7,7 @@ import { SalesOperationEntity } from './entities/sales-operation.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([SalesOperationEntity])
+    TypeOrmModule.forFeature([SalesOperationEntity], 'db1')
   ],
   controllers: [SalesOperationController],
   providers: [SalesOperationService]
