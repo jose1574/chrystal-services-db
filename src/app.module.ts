@@ -9,7 +9,7 @@ import { AppController } from './app.controller';
 
 import { AppService } from './app.service';
 import { ProductsCodesModule } from './products-codes/products-codes.module';
-
+import { ProductsStockModule } from './products_stock/products-stock.module';
 
 @Module({
   imports: [ 
@@ -19,7 +19,8 @@ import { ProductsCodesModule } from './products-codes/products-codes.module';
     DatabaseModule, 
     ProductsModule,
     SalesOperationModule,
-    ProductsCodesModule
+    ProductsCodesModule,
+    ProductsStockModule
   ],
   controllers: [AppController],
   providers: [AppService],
