@@ -8,6 +8,7 @@ import { SalesOperationModule } from './sales-operation/sales-operation.module';
 import { AppController } from './app.controller';
 
 import { AppService } from './app.service';
+import { ProductsCodesModule } from './products-codes/products-codes.module';
 
 
 @Module({
@@ -17,7 +18,8 @@ import { AppService } from './app.service';
     }),
     DatabaseModule, 
     ProductsModule,
-    SalesOperationModule
+    SalesOperationModule,
+    ProductsCodesModule
   ],
   controllers: [AppController],
   providers: [AppService],

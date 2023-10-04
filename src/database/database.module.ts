@@ -14,7 +14,7 @@ import { ConfigService, ConfigModule } from '@nestjs/config';
         username: configService.get('DB_USER'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_NAME'),
-        retryDelay: 3000,
+        retryDelay: 3000, 
         autoLoadEntities: true,
       }),
     }),
