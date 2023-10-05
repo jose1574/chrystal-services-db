@@ -10,6 +10,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ProductsCodesModule } from './products-codes/products-codes.module';
 import { ProductsStockModule } from './products_stock/products-stock.module';
+import { ProductsUnitsModule } from './products-units/products-units.module';
 
 @Module({
   imports: [ 
@@ -20,7 +21,8 @@ import { ProductsStockModule } from './products_stock/products-stock.module';
     ProductsModule,
     SalesOperationModule,
     ProductsCodesModule,
-    ProductsStockModule
+    ProductsStockModule,
+    ProductsUnitsModule
   ],
   controllers: [AppController],
   providers: [AppService],
