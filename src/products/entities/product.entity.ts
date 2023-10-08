@@ -2,58 +2,60 @@ import { Entity, Column, PrimaryColumn } from 'typeorm';
 
 @Entity('products')
 export class ProductEntity {
-  @PrimaryColumn('varchar')
+    @PrimaryColumn('varchar')
+
   code: string;
 
-  @Column('varchar' )
+  @Column('varchar')
   description: string;
 
-  @Column({ type: String })
+
+  @Column({type: String})
   short_name: string;
 
-  @Column({ type: String })
+  @Column({type: String})
   mark: string;
 
-  @Column({ type: String })
+  @Column({type: String})
   model: string;
 
-  @Column({ type: String })
+  @Column({type: String})
   referenc: string;
 
-  @Column({ type: String })
+  @Column({type: String})
   department: string;
 
-  @Column({ type: Number })
+  @Column({type: Number})
   days_warranty: number;
 
-  @Column({ type: String })
+  @Column({type: String})
   sale_tax: string;
 
-  @Column({ type: String })
+  @Column({type: String})
   buy_tax: string;
 
-  @Column({ type: Number })
+  @Column({type: Number})
   rounding_type: number;
 
-  @Column({ type: Number })
+  @Column({type: Number})
   costing_type: number;
 
-  @Column({ type: Number })
+  @Column({type: Number})
   discount: number;
 
-  @Column({ type: Number, default: 0, nullable: false })
+  @Column({type: Number, default: 0, nullable: false })
   max_discount: number;
 
-  @Column({ type: Number, default: 0, nullable: false })
+  @Column({type: Number, default: 0, nullable: false })
   minimal_sale: number;
 
-  @Column({ type: Number, default: 0, nullable: false })
+  @Column({type: Number, default: 0, nullable: false })
   maximal_sale: number;
 
-  @Column({ type: String })
+  @Column({type: String})
   status: string;
 
-  @Column({ type: String })
+  @Column({type: String})
   origin: string;
 
   @Column({ type: Boolean })

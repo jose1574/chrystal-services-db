@@ -1,9 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { ProductsStockEntity } from '../entities/products-stock.entity';
-import { ProductsStockDto, UpdateProductStock } from '../dtos/products-stock.dto';
+import { ProductsStockDto } from '../dtos/products-stock.dto';
 
 @Injectable()
 export class ProductsStockService {
@@ -12,25 +12,21 @@ export class ProductsStockService {
     private readonly prodStockRepo: Repository<ProductsStockEntity>,
   ) {}
 
-  async findAll(): Promise<ProductsStockDto[]> {
+  async findProductsStock(): Promise<ProductsStockEntity[]> {
     return await this.prodStockRepo.find();
   }
 
-  async findOne(id: string): Promise<ProductsStockDto> {
+  async getProductStockById(id: string): Promise<ProductsStockEntity> {
     return await this.prodStockRepo.findOneBy({ product_code: id });
   }
 
-  async create(data: ProductsStockDto): Promise<ProductsStockDto> {
-    const newProductStock = this.prodStockRepo.create(data);
-    return await this.prodStockRepo.save(newProductStock);
+  async insertProductStock(body: ProductsStockDto[]): Promise<any> {
+    return this.prodStockRepo.save(body);
   }
 
-  async update(id: string, changes: UpdateProductStock): Promise<UpdateProductStock> {
-    const productStock = await this.findOne(id);
-    if(!productStock) {
-      throw new NotFoundException('No se encontro el producto');
-    }
-    this.prodStockRepo.merge(productStock, changes);
-    return this.prodStockRepo.save(productStock);
+  async deleteProductStock(id: any): Promise<any> {
+    console.log(id);
+    
+    return this.prodStockRepo.delete(id);
   }
 }

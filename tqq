@@ -1,0 +1,47 @@
+[33mcommit 551cbdb6a30403df01cdc6d26552e1d8a031992b[m[33m ([m[1;36mHEAD -> [m[1;32mdevelopment[m[33m, [m[1;31morigin/development[m[33m)[m
+Author: Jose Gomez <jose.gs1574@gmail.com>
+Date:   Sun Oct 8 13:25:19 2023 -0400
+
+    se realizaron cambios en los nombres de las funciones de los servicios y controladores para que se entiendan mejor, ademas de que se mejoraron las funciones de los servicios, se añadio operation update en cada una de las tablas
+
+[33mcommit 3020ed22e017c7bec3cbb83ab15af5190fb6a8a8[m
+Author: Jose Gomez <jose.gs1574@gmail.com>
+Date:   Thu Oct 5 01:08:05 2023 -0400
+
+    se crean las operaciones CRUD de la tabla products_units. CLOSED #2
+
+[33mcommit afc3ec166c3f4b91c5ece8703db402aa64f37e82[m
+Author: Jose Gomez <jose.gs1574@gmail.com>
+Date:   Wed Oct 4 04:16:05 2023 -0400
+
+    se crean las operaciones CRUD de la tabla 'products_stock'. Close #1
+
+[33mcommit 5ef068b0ec331d882f78934828630efa193cfe53[m
+Author: Jose Gomez <jose.gs1574@gmail.com>
+Date:   Tue Oct 3 23:59:32 2023 -0400
+
+    se configura las variables de entorno para el arranque del servidor, ademas de las operaciones de insertar, en las tablas de products y products-codes
+
+[33mcommit 09f9fb701433b5e0f4f90c7ec03461deba8c062e[m
+Author: Jose Gomez <jose.gs1574@gmail.com>
+Date:   Sat Sep 30 14:53:30 2023 -0400
+
+    se incorpora el manejo de errores en los servicio de 'sales_operation' y 'products'
+
+[33mcommit 1d8219f30109d182bbb79c0d6be561ec261d621d[m
+Author: Jose Gomez <jose.gs1574@gmail.com>
+Date:   Sat Sep 30 13:55:01 2023 -0400
+
+    se configuran las variables de entorno para datos de configuracion de bases de datos
+
+[33mcommit 6469029243bcdd895e32c9d259c0441e9aedce3b[m
+Author: Jose Gomez <jose.gs1574@gmail.com>
+Date:   Fri Sep 29 01:27:06 2023 -0400
+
+    se crean las consultas a las tablas products y sales operation
+
+[33mcommit ae80e130c547d8f543c42a951459e3d040f4e6c3[m
+Author: Jose Gomez <jose.gs1574@gmail.com>
+Date:   Fri Sep 29 00:28:50 2023 -0400
+
+    commit inicial de la aplicacion
