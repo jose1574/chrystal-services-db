@@ -6,10 +6,12 @@ import {
   Param,
   Body,
   NotFoundException,
+  Put,
 } from '@nestjs/common';
 
 import { ProductsService } from '../services/products.service';
-import { ProductsDto } from '../dtos/product.dto';
+import { ProductsDto, UpdateProductDto } from '../dtos/product.dto';
+import { ProductsUnitsDto } from 'src/products-units/dtos/products-units.dto';
 
 @Controller('products')
 export class ProductsController {
@@ -17,12 +19,12 @@ export class ProductsController {
 
   @Get()
   async findAllProducts() {
-    return this.productsService.findAllProducts();
+    return this.productsService.findAll();
   }
 
   @Get(':id')
   async findCodeProduct(@Param('id') id: string) {
-    const product = await this.productsService.findOneProduct(id);
+    const product = await this.productsService.findOne(id);
     if (product) {
       return product;
     } else {
@@ -34,15 +36,17 @@ export class ProductsController {
   }
 
   @Post()
-  async createProduct(@Body() newProduct: ProductsDto[]) {
+  async create(@Body() body: ProductsDto): Promise<any> {
+    return this.productsService.create(body);
+  }
+
+  @Put(':id')
+  async update(@Param('id') id: string, @Body() body: UpdateProductDto) {
     try {
-      const createNewProduct = this.productsService.insertNewProduct(newProduct);
-      return await createNewProduct;
-    } catch (error) {
-      throw new NotFoundException(
-        'no se puede insertar el nuevo producto',
-        'Error',
-      );
+      const updateProduct = this.productsService.update(id, body);
+      return updateProduct;
+    }catch (error) {
+      throw new NotFoundException(`Error al actualizar`, `${error}`);
     }
   }
 }

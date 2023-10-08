@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { Repository } from 'typeorm';
-import { ProductsUnitEntity } from '../entities/products-units.dto';
+import { ProductsUnitEntity } from '../entities/products-units.entity';
 
 @Injectable()
 export class ProductsUnitsService {
@@ -20,7 +20,7 @@ export class ProductsUnitsService {
         return this.productsUnitsRepo.findOneBy({correlative: id})
     };
 
-    async insert(body: ProductsUnitEntity[]): Promise<ProductsUnitEntity[]> {
+    async insert(body: ProductsUnitEntity): Promise<any> {
         return this.productsUnitsRepo.save(body);
     }
 

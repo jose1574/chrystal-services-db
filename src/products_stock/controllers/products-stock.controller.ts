@@ -4,35 +4,32 @@ import {
   Param,
   Post,
   Delete,
+  Put,
   NotFoundException,
   Body,
 } from '@nestjs/common';
 
 import { ProductsStockService } from '../services/products-stock.service';
-import { ProductsService } from 'src/products/services/products.service';
-
-import { ProductsStockDto } from '../dtos/products-stock.dto';
-import { ProductsStockEntity } from '../entities/products-stock.entity';
+import {
+  ProductsStockDto,
+  UpdateProductStock,
+} from '../dtos/products-stock.dto';
 
 @Controller('products-stock')
 export class ProductsStockController {
-  constructor(
-    private readonly productsStockService: ProductsStockService,
-    private readonly productsServices: ProductsService,
-  ) {}
+  constructor(private readonly productsStockService: ProductsStockService) {}
 
   @Get()
-  async findProductsStock(): Promise<ProductsStockDto[]> {
-    return await this.productsStockService.findProductsStock();
+  async findAll(): Promise<ProductsStockDto[]> {
+    return await this.productsStockService.findAll();
   }
 
   @Get(':id')
-  async findProductStockById(
+  async findOne(
     @Param('id')
     id: string,
   ): Promise<ProductsStockDto> {
-    const productStock =
-      await this.productsStockService.getProductStockById(id);
+    const productStock = await this.productsStockService.findOne(id);
     if (!productStock) {
       throw new NotFoundException(
         `No se encuentra el stock del producto con el id ${id}`,
@@ -43,25 +40,28 @@ export class ProductsStockController {
   }
 
   @Post()
-  async insertProductStock(
-    @Body()
-    ProductStock: ProductsStockDto[],
-  ): Promise<any> {
+  async create(
+    @Body() ProductStock: ProductsStockDto,
+  ): Promise<ProductsStockDto> {
     try {
       const newProductStock =
-        await this.productsStockService.insertProductStock(ProductStock);
+        await this.productsStockService.create(ProductStock);
       return newProductStock;
     } catch (error) {
       throw new NotFoundException(`Error al guardar los datos`, `${error}`);
     }
   }
 
-  @Delete(':id')
-  async deleteProductStock(@Param('id') id: string): Promise<any> {
-    const findProduct = await this.findProductStockById(id);
-    if (!findProduct) {
-      throw new NotFoundException(`Error al guardar los datos`);
+  @Put(':id')
+  async update(@Param('id') id: string, @Body() body: UpdateProductStock) {
+    try {
+      const productStock = this.productsStockService.update(id, body);
+      return productStock;
+    } catch (error) {
+      throw new NotFoundException(
+        `error al actualizar el stock del producto ${id}`,
+        `${error}`,
+      );
     }
-    return this.productsStockService.deleteProductStock(id);
   }
 }
