@@ -12,7 +12,7 @@ import { SalesOperationEntity } from '../entities/sales-operation.entity';
 @Injectable()
 export class SalesOperationService {
   constructor(
-    @InjectRepository(SalesOperationEntity)
+    @InjectRepository(SalesOperationEntity, 'db1')
     private readonly salesOperationsService: Repository<SalesOperationEntity>,
   ) {}
 

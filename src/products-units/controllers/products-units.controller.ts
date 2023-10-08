@@ -33,12 +33,20 @@ export class ProductsUnitsController {
   }
 
   @Post()
-  async insert(@Body() body: ProductsUnitsDto): Promise<any> {
-    return await this.productsUnitsService.insert(body)
+  async insert(@Body() body: ProductsUnitsDto[]): Promise<ProductsUnitsDto[]> {
+    try {
+      const newProductUnits = this.productsUnitsService.insert(body);
+      return await newProductUnits;
+    } catch (error) {
+      throw new NotFoundException(
+        'no se puede insertar el nuevo producto',
+        `${error}`,
+      );
+    }
   }
 
   @Delete(':id')
-  async delete(@Param('id', ParseIntPipe) id: number) {
+  async delete(@Param('id', ParseIntPipe) id: number): Promise<any> {
     const findProduct = await this.findOne(id);
     if(!findProduct) {
         throw  new NotFoundException(`No existe un Producto con ese Id: ${id}`);

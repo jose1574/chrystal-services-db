@@ -4,7 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductsUnitsService } from './services/products-units.service';
 import { ProductsUnitsController } from './controllers/products-units.controller';
 
-import { ProductsUnitEntity } from './entities/products-units.entity';
+import { ProductsUnitEntity } from './entities/products-units.dto';
 
 @Module({
   imports: [
