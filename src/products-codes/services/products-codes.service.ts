@@ -1,25 +1,44 @@
-import { Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
-import { InjectRepository } from '@nestjs/typeorm';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { Repository, DataSource } from 'typeorm';
+import { InjectRepository, InjectDataSource } from '@nestjs/typeorm';
 
-import { ProductsCodesEntity } from '../entities/products.codes.entity';
+import { ProductCodeEntity } from '../entities/products-codes.entity';
+import {
+  ProductCodeDto,
+  UpdateProductCodeDto,
+} from '../dtos/products.codes.dtos';
+import { ProductEntity } from 'src/products/entities/product.entity';
 
 @Injectable()
 export class ProductsCodesService {
-    constructor(
-        @InjectRepository(ProductsCodesEntity)
-        private readonly productsCodeRepo: Repository<ProductsCodesEntity>,
-    ){}
+  constructor(
+    @InjectRepository(ProductCodeEntity)
+    private readonly productsCodeRepo: Repository<ProductCodeEntity>,
+  ) {}
 
-    async findAllProductsCodes():Promise<ProductsCodesEntity[]> {
-        return await this.productsCodeRepo.find();
+
+  async findAll(): Promise<ProductCodeDto[]> {
+    return await this.productsCodeRepo.find();
+  }
+
+  async findOne(id: string): Promise<ProductCodeDto> {
+    return await this.productsCodeRepo.findOneBy({ other_code: id });
+  }
+
+  async create(data: ProductCodeDto): Promise<any> {
+    const newData = this.productsCodeRepo.create(data)
+    return this.productsCodeRepo.insert(newData)
+  }
+
+  async update(
+    id: string,
+    changes: UpdateProductCodeDto,
+  ): Promise<UpdateProductCodeDto> {
+    const productCode = await this.findOne(id);
+    if (!productCode) {
+      throw new NotFoundException('Product Code not found');
     }
-
-    async findOneCodeProduct(id: string): Promise<ProductsCodesEntity> {
-        return await this.productsCodeRepo.findOneBy({ main_code: id });
-      }    
-
-    async insertProductCode(newCode: ProductsCodesEntity[]) {
-        return this.productsCodeRepo.save(newCode);
-    }
+    this.productsCodeRepo.merge(productCode, changes);
+    return this.productsCodeRepo.save(productCode);
+  }
 }

@@ -2,128 +2,123 @@ import { Entity, Column, PrimaryColumn } from 'typeorm';
 
 @Entity('products')
 export class ProductEntity {
-    @PrimaryColumn('varchar')
-
+  @PrimaryColumn()
   code: string;
 
-  @Column('varchar')
+  @Column()
   description: string;
 
-
-  @Column({type: String})
+  @Column()
   short_name: string;
 
-  @Column({type: String})
+  @Column()
   mark: string;
 
-  @Column({type: String})
+  @Column()
   model: string;
 
-  @Column({type: String})
+  @Column()
   referenc: string;
 
-  @Column({type: String})
+  @Column()
   department: string;
 
-  @Column({type: Number})
+  @Column()
   days_warranty: number;
 
-  @Column({type: String})
+  @Column()
   sale_tax: string;
 
-  @Column({type: String})
+  @Column()
   buy_tax: string;
 
-  @Column({type: Number})
+  @Column()
   rounding_type: number;
 
-  @Column({type: Number})
+  @Column()
   costing_type: number;
 
-  @Column({type: Number})
+  @Column()
   discount: number;
 
-  @Column({type: Number, default: 0, nullable: false })
+  @Column()
   max_discount: number;
 
-  @Column({type: Number, default: 0, nullable: false })
+  @Column()
   minimal_sale: number;
 
-  @Column({type: Number, default: 0, nullable: false })
+  @Column()
   maximal_sale: number;
 
-  @Column({type: String})
+  @Column()
   status: string;
 
-  @Column({type: String})
+  @Column()
   origin: string;
 
-  @Column({ type: Boolean })
+  @Column()
   take_department_utility: boolean;
 
-  @Column({ type: Boolean })
+  @Column()
   allow_decimal: boolean;
 
-  @Column({ type: Boolean })
+  @Column()
   edit_name: boolean;
 
-  @Column({ type: Number })
+  @Column()
   sale_price: number;
 
-  @Column({ type: String, default: 'T', nullable: false })
+  @Column()
   product_type: string;
 
-  @Column({ type: String, default: '00' })
+  @Column()
   technician: string;
 
-  @Column({ type: Boolean, default: true })
+  @Column()
   request_technician: boolean;
 
-  @Column({ type: Boolean, default: false })
+  @Column()
   serialized: boolean;
 
-  @Column({ type: Boolean, default: false })
+  @Column()
   request_details: boolean;
 
-  @Column({ type: Boolean, default: false })
+  @Column()
   request_amount: boolean;
 
-  @Column({ type: String })
+  @Column()
   coin: string;
 
-  @Column({ type: Boolean, default: false })
+  @Column()
   allow_negative_stock: boolean;
 
-  @Column({ type: Boolean, default: false })
+  @Column()
   use_scale: boolean;
 
-  @Column({ type: Boolean, default: false })
+  @Column()
   add_unit_description: boolean;
 
-  @Column({ type: Boolean, default: false })
+  @Column()
   use_lots: boolean;
 
-  @Column({ type: Number, default: 0 })
+  @Column()
   lots_order: number;
 
-  @Column({ type: Number, default: 0 })
+  @Column()
   minimal_stock: number;
 
-  @Column({ type: Boolean, default: false })
+  @Column()
   notify_minimal_stock: boolean;
 
-  @Column({ type: String, default: '' })
+  @Column()
   size: string;
 
-  @Column({ type: String, default: '' })
+  @Column()
   color: string;
 
-  @Column({ type: Boolean, default: false })
+  @Column()
   extract_net_from_unit_cost_plus_tax: boolean;
 
-  @Column({ type: Boolean, default: false })
-  extract_net_from_unit_price_plus_tax: boolean;
-
-  @Column({ type: Number, default: 0 })
-  maximum_stock: number;
+  @Column()
+  maximum_stock: number; 
 }

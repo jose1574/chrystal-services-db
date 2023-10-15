@@ -1,19 +1,19 @@
-import { Controller, Get, Post, Body, NotFoundException, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, NotFoundException, Param, Put } from '@nestjs/common';
 
 import { ProductsCodesService } from '../services/products-codes.service';
-import { ProductsCodesDto } from '../dtos/products.codes.dtos';
+import { ProductCodeDto, UpdateProductCodeDto } from '../dtos/products.codes.dtos';
 @Controller('products-codes')
 export class ProductsCodesController {
   constructor(private readonly productsCodesService: ProductsCodesService) {}
 
   @Get()
   async findAllCodes() {
-    return this.productsCodesService.findAllProductsCodes();
+    return this.productsCodesService.findAll();
   }
 
   @Get(':id')
   async findProduct(@Param('id') id: string) {
-    const product = await this.productsCodesService.findOneCodeProduct(id);
+    const product = await this.productsCodesService.findOne(id);
     if (product) {
       return product;
     } else {
@@ -25,12 +25,17 @@ export class ProductsCodesController {
   }
 
   @Post()
-  async insertNewCode(@Body() body: ProductsCodesDto[]) {
+  async insertNewCode(@Body() body: ProductCodeDto): Promise<ProductCodeDto> {
     try {
-      const newCodeProduct = this.productsCodesService.insertProductCode(body);
-      return await newCodeProduct;
-    } catch {
-      throw new NotFoundException('Error inserting product code', 'Error');
+      const newCodeProduct = await this.productsCodesService.create(body);
+      return newCodeProduct;
+    } catch (err){
+      throw new NotFoundException('Error inserting product code', `${err}`);
     }
+  }
+
+  @Put(':id')
+  async update(@Param('id') id: string, @Body() changes: UpdateProductCodeDto): Promise<UpdateProductCodeDto> {
+    return this.productsCodesService.update(id, changes);
   }
 }

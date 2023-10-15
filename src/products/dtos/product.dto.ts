@@ -1,83 +1,126 @@
-export interface ProductsDto {
+import { PartialType } from "@nestjs/mapped-types";
+import { IsString, IsNumber, IsBoolean } from "class-validator";
+
+export class ProductsDto {  
+  @IsString()
   code: string;
 
+  @IsString()
   description: string;
 
+  @IsString()
   short_name: string;
 
+  @IsString()
   mark: string;
 
+  @IsString()
   model: string;
 
-  reference: string;
+  @IsString()
+  referenc: string;
 
+  @IsString()
   department: string;
 
+  @IsNumber()
   days_warranty: number;
 
+  @IsString()
   sale_tax: string;
 
+  @IsString()
   buy_tax: string;
 
+  @IsNumber()
   rounding_type: number;
 
+  @IsNumber()
   costing_type: number;
 
+  @IsNumber()
   discount: number;
 
+  @IsNumber()
   max_discount: number;
 
+  @IsNumber()
   minimal_sale: number;
 
+  @IsNumber()
   maximal_sale: number;
 
+  @IsString()
   status: string;
 
+  @IsString()
   origin: string;
 
+  @IsBoolean()
   take_department_utility: boolean;
 
+  @IsBoolean()
   allow_decimal: boolean;
 
+  @IsBoolean()
   edit_name: boolean;
 
+  @IsNumber()
   sale_price: number;
 
+  @IsString()
   product_type: string;
 
+  @IsString()
   technician: string;
 
+  @IsBoolean()
   request_technician: boolean;
 
+  @IsBoolean()
   serialized: boolean;
 
+  @IsBoolean()
   request_details: boolean;
 
+  @IsBoolean()
   request_amount: boolean;
 
+  @IsString()
   coin: string;
 
+  @IsBoolean()
   allow_negative_stock: boolean;
 
+  @IsBoolean()
   use_scale: boolean;
 
+  @IsBoolean()
   add_unit_description: boolean;
 
+  @IsBoolean()
   use_lots: boolean;
 
+  @IsNumber()
   lots_order: number;
 
+  @IsNumber()
   minimal_stock: number;
 
+  @IsBoolean()
   notify_minimal_stock: boolean;
 
+  @IsString()
   size: string;
 
+  @IsString()
   color: string;
 
+  @IsBoolean()
   extract_net_from_unit_cost_plus_tax: boolean;
 
-  extract_net_from_unit_price_plus_tax: boolean;
-
+  @IsNumber()
   maximum_stock: number;
 }
+
+export class UpdateProductDto extends PartialType(ProductsDto){}
