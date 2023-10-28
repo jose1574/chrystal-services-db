@@ -4,13 +4,13 @@ import {
   Post,
   Body,
   Param,
-  Delete,
+  Put,
   NotFoundException,
   ParseIntPipe,
 } from '@nestjs/common';
 
 import { ProductsUnitsService } from '../services/products-units.service';
-import { ProductsUnitsDto } from '../dtos/products-units.dto';
+import { ProductsUnitsDto, UpdateProductsUnitsDto } from '../dtos/products-units.dto';
 
 @Controller('products-units')
 export class ProductsUnitsController {
@@ -22,10 +22,8 @@ export class ProductsUnitsController {
   }
 
   @Get(':id')
-  async findOne(
-    @Param('id', ParseIntPipe) id: number,
-  ): Promise<ProductsUnitsDto> {
-    const productUnit = await this.productsUnitsService.findOne(id);
+  async findOne(@Param('id', ParseIntPipe) id: number): Promise<ProductsUnitsDto> {
+    const productUnit = await this.productsUnitsService.findOne(id); 
     if (productUnit === null) {
       throw new NotFoundException(`El producto con el id "${id}" no se encuentra`);
     }
@@ -33,7 +31,7 @@ export class ProductsUnitsController {
   }
 
   @Post()
-  async insert(@Body() body: ProductsUnitsDto[]): Promise<ProductsUnitsDto[]> {
+  async insert(@Body() body: ProductsUnitsDto): Promise<ProductsUnitsDto> {
     try {
       const newProductUnits = this.productsUnitsService.insert(body);
       return await newProductUnits;
@@ -45,12 +43,8 @@ export class ProductsUnitsController {
     }
   }
 
-  @Delete(':id')
-  async delete(@Param('id', ParseIntPipe) id: number): Promise<any> {
-    const findProduct = await this.findOne(id);
-    if(!findProduct) {
-        throw  new NotFoundException(`No existe un Producto con ese Id: ${id}`);
-    }
-    return this.productsUnitsService.delete(id);
+  @Put(':id')
+  async update (@Param('id', ParseIntPipe) id: number, @Body() body :UpdateProductsUnitsDto): Promise<UpdateProductsUnitsDto> {
+    return await this.productsUnitsService.update(id, body)
   }
 }

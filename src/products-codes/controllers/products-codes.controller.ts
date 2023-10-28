@@ -36,6 +36,11 @@ export class ProductsCodesController {
 
   @Put(':id')
   async update(@Param('id') id: string, @Body() changes: UpdateProductCodeDto): Promise<UpdateProductCodeDto> {
-    return this.productsCodesService.update(id, changes);
-  }
+    try{
+    const result = await  this.productsCodesService.update(id, changes);
+    return result
+
+    }catch(err) {
+      throw new NotFoundException(`error al actualizar el código de producto`,`${err}`);}
+    }
 }

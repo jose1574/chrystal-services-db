@@ -3,5 +3,5 @@
 FROM node:18-alpine
 WORKDIR /app
 COPY . .
-CMD ["pwd"]
+CMD ["node main.js"]
 EXPOSE 3000

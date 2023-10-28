@@ -1,8 +1,8 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryColumn } from 'typeorm';
 
 @Entity('products_units')
 export class ProductsUnitEntity {
-  @PrimaryGeneratedColumn()
+  @PrimaryColumn({type: 'bigint'})
   correlative: number;
 
   @Column('character varying')

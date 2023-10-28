@@ -20,9 +20,9 @@ export class ProductsService {
     return await this.productRepo.findOneBy({ code: id });
   }
 
-  async create(data: ProductsDto): Promise<ProductsDto> {
+  async insert(data: ProductsDto): Promise<any> {
     const newProduct = this.productRepo.create(data);
-    return this.productRepo.save(newProduct);
+    return this.productRepo.insert(newProduct);
   }
 
   async update(id: string, changes: UpdateProductDto): Promise<UpdateProductDto> {
@@ -30,7 +30,7 @@ export class ProductsService {
     if (!product) {
       throw new NotFoundException(`producto con el id ${id} no existe`);
     }
-    this.productRepo.merge(product, changes);
+    this.productRepo.merge(product, changes)
     return this.productRepo.save(product);
   }
 }

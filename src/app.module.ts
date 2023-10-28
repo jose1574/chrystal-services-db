@@ -8,6 +8,8 @@ import { AppController } from './app.controller';
 
 import { AppService } from './app.service';
 import { ProductsCodesModule } from './products-codes/products-codes.module';
+import { ProductsUnitsModule } from './products-units/products-units.module';
+import { UnitModule } from './unit/unit.module';
 
 @Module({
   imports: [ 
@@ -17,6 +19,8 @@ import { ProductsCodesModule } from './products-codes/products-codes.module';
     DatabaseModule, 
     ProductsModule,
     ProductsCodesModule,
+    ProductsUnitsModule,
+    UnitModule
   ],
   controllers: [AppController],
   providers: [AppService],

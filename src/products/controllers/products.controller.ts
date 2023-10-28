@@ -3,10 +3,10 @@ import {
   Get,
   Post,
   Put,
-  Delete,
   Param,
   Body,
   NotFoundException,
+  
 } from '@nestjs/common';
 
 import { ProductsService } from '../services/products.service';
@@ -18,11 +18,11 @@ export class ProductsController {
 
   @Get()
   async findAll():Promise<ProductsDto[]> {
-    return this.productsService.findAll();
+    return await this.productsService.findAll();
   }
 
   @Get(':id')
-  async findCodeProduct(@Param('id') id: string): Promise<ProductsDto> {
+  async findOne(@Param('id') id: string): Promise<ProductsDto> {
     const product = await this.productsService.findOne(id);
     if (!product) {
       throw new NotFoundException(
@@ -33,14 +33,14 @@ export class ProductsController {
   }
 
   @Post()
-  async createProduct(@Body() newProduct: ProductsDto): Promise<ProductsDto> {
+  async insert(@Body() body: ProductsDto): Promise<any> {
     try {
-      const createNewProduct = this.productsService.create(newProduct);
+      const createNewProduct = this.productsService.insert(body);
       return await createNewProduct;
     } catch (error) {
       throw new NotFoundException(
         'no se puede insertar el nuevo producto',
-        'Error',
+        `${error}`,
       );
     }
   }
