@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { Repository } from 'typeorm';
-import { ProductsUnitEntity } from '../entities/products-units.entity';
+import { ProductsUnitsEntity } from '../entities/products-units.entity';
 import {
   ProductsUnitsDto,
   UpdateProductsUnitsDto,
@@ -11,29 +11,61 @@ import {
 @Injectable()
 export class ProductsUnitsService {
   constructor(
-    @InjectRepository(ProductsUnitEntity)
-    private readonly productsUnitsRepo: Repository<ProductsUnitEntity>,
+    @InjectRepository(ProductsUnitsEntity)
+    private readonly productUnitRepository: Repository<ProductsUnitsEntity>,
   ) {}
 
-  async findAll(): Promise<any> {
-    return this.productsUnitsRepo.find();
+  async findAll(): Promise<ProductsUnitsDto[]> {
+    return this.productUnitRepository.find();
   }
 
-  async findOne(id: number): Promise<any> {
-    return this.productsUnitsRepo.findOneBy({correlative: id});
-  }
+  async findOneByCode(correlative: string): Promise<ProductsUnitsDto> {
+    const productUnit = await this.productUnitRepository.findOne({ where: { correlative } });
 
-  async insert(data: any): Promise<any> {
-    const newProduct = this.productsUnitsRepo.create(data); 
-    return this.productsUnitsRepo.save(newProduct);
-  }
-
-  async update(id: number, changes: any): Promise<any> {
-    const productUnit = await this.findOne(id);
     if (!productUnit) {
-      throw new NotFoundException(`El id ${id} no existe`);
+      throw new NotFoundException(
+        `productUnit con el codigo ${correlative} no se encuentra.`,
+      );
     }
-    this.productsUnitsRepo.merge(productUnit, changes);
-    return this.productsUnitsRepo.save(productUnit);
+    return productUnit;
+  }
+
+  async insert(data: ProductsUnitsDto[]): Promise<any> {
+    try {
+      const newInstance = this.productUnitRepository.create(data);
+      const addNew = await this.productUnitRepository.save(newInstance);
+      return addNew;
+    } catch (err) {
+      throw new NotFoundException(
+        `Error al insertar la ProductUnit ${JSON.stringify(err)}`,
+      );
+    }
+  }
+
+  async update(id: string, changes: UpdateProductsUnitsDto): Promise<UpdateProductsUnitsDto> {
+    try {
+      const search = await this.findOneByCode(id);
+
+      if (search!) {
+        throw new NotFoundException(`taxes con el id ${id} no se encuentra`);
+      }
+      const merge = this.productUnitRepository.merge(search, changes);
+      const updateProductUnit = this.productUnitRepository.save(merge);
+
+      return updateProductUnit;
+    } catch (error) {
+      throw new NotFoundException(
+        `Error al actualizar la productUnit ${JSON.stringify(error)}`,
+      );
+    }
+  }
+
+  async delete(id: string): Promise<ProductsUnitsDto> {
+    const productUnitDelete = await this.findOneByCode(id);
+    if (!productUnitDelete) {
+      throw new NotFoundException(`taxes con ID ${id} no encontrado`);
+    }
+    await this.productUnitRepository.remove(productUnitDelete);
+    return productUnitDelete;
   }
 }

@@ -1,16 +1,18 @@
 import { IsString, IsNumber, IsBoolean } from "class-validator";
 import { PartialType } from "@nestjs/mapped-types";
+import { UnitsDto } from "src/unit/dtos/units.dto";
+import { ProductsDto } from "src/products/dtos/product.dto";
 
 
 export class ProductsUnitsDto {
   @IsNumber()
-  correlative: number;
+  correlative: string;
 
   @IsString()
-  unit: string; 
+  unit: UnitsDto; 
 
   @IsString()
-  product_code: string;
+  product_code: ProductsDto;
 
   @IsBoolean()
   main_unit: boolean;
@@ -82,7 +84,7 @@ export class ProductsUnitsDto {
   perc_discount_provider: number;
 
   @IsNumber()
-  lenght: number;
+  length: number;
 
   @IsNumber()
   height: number;

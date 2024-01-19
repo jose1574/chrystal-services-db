@@ -1,7 +1,7 @@
 import { PartialType } from "@nestjs/mapped-types";
 import { IsString } from "class-validator";
 
-export class UnitDto {
+export class UnitsDto {
     @IsString()
     code: string;
     
@@ -9,4 +9,4 @@ export class UnitDto {
     description: string
 }
 
-export class UpdateUnitDto extends PartialType(UnitDto) {}
+export class UpdateUnitsDto extends PartialType(UnitsDto) {}

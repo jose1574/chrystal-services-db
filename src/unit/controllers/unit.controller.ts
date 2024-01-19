@@ -1,50 +1,45 @@
 import {
-    Controller,
+  Controller,
   Get,
   Post,
   Put,
   Param,
   Body,
-  NotFoundException    
+  Delete,
 } from '@nestjs/common';
 
-import { UnitService } from '../services/unit.service';
-import { UnitDto, UpdateUnitDto } from '../dtos/unit.dto';
+import { UnitsService } from '../services/units.service';
+import { UnitsDto, UpdateUnitsDto } from '../dtos/units.dto';
 
 @Controller('units')
 export class UnitController {
-    constructor(private unitService: UnitService) {}
+  constructor(private readonly unitsService: UnitsService) {}
 
-    @Get()
-    async find(): Promise<UnitDto[]> {
-        return await this.unitService.find();
-    }
+  @Get()
+  async findAll(): Promise<UnitsDto[]> {
+    return this.unitsService.findAll();
+  }
 
-    @Get(':id')
-    async findOne(@Param('id') id:string):Promise<UnitDto> {
-        const unit = await this.unitService.findOne(id);
-        if(!unit) {
-            throw new NotFoundException(`unidad con id #${id} no se encuentra`);
-        }
-        return unit;
-    };
+  @Get(':id')
+  async findOne(@Param('id') code: string): Promise<UnitsDto> {
+    return this.unitsService.findOneByCode(code);
+  }
 
-    @Post()
-    async create(@Body() body: UnitDto): Promise<UnitDto> {
-        try {
-            const unit = this.unitService.insert(body);        
-            return await unit;
-          } catch (err) {
-            console.error('error al crear la unidad');            
-            throw new NotFoundException(
-              'error, no se puede crear la unidad',
-              `${err}`,
-            );
-          }
-    };
+  @Post()
+  async insert(@Body() data: UnitsDto[]): Promise<any> {
+    return this.unitsService.insert(data);
+  }
 
-    @Put(':id')
-    async update(@Param('id') id: string, @Body() changes: UpdateUnitDto):Promise<UpdateUnitDto> {
-        return this.unitService.update(id, changes);
-    };
+  @Put(':id')
+  async update(
+    @Param('id') id: string,
+    @Body() changes: UpdateUnitsDto,
+  ): Promise<UpdateUnitsDto> {
+    return this.unitsService.update(id, changes);
+  }
+
+  @Delete(':id')
+  async delete(@Param('id') id: string): Promise<UnitsDto> {
+    return this.unitsService.delete(id);
+  }
 }

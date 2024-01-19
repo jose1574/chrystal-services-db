@@ -30,7 +30,7 @@ CREATE TABLE products_codes
   code_type character varying DEFAULT 'C'::character varying,
   CONSTRAINT products_codes_pkey PRIMARY KEY (other_code ),
 
-  
+  Listo
   CONSTRAINT products_codes_main_code_fkey FOREIGN KEY (main_code)
       REFERENCES products (code) MATCH SIMPLE
       ON UPDATE CASCADE ON DELETE CASCADE

@@ -1,26 +1,26 @@
-import { PartialType } from "@nestjs/mapped-types";
-import { IsString, IsNumber, IsNotEmpty } from "class-validator";
+import { PartialType } from '@nestjs/mapped-types';
+import { IsString, IsNumber } from 'class-validator';
+import { ProductsUnitsDto } from 'src/products-units/dtos/products-units.dto';
+import { ProductsDto } from 'src/products/dtos/product.dto';
 
 export class ProductsPartsDto {
-    @IsString() 
-    main_code: string;
+  @IsNumber()
+  line: string;
 
-    @IsString()
-    part_code: string;
+  @IsString()
+  main_code: ProductsDto;
 
-    @IsNumber()
-    unit: number;
+  @IsString()
+  part_code: ProductsDto;
 
-    @IsNumber()
-    amount: number;
+  @IsString()
+  unit: ProductsUnitsDto;
 
-    @IsNumber()
-    @IsNotEmpty()
-    line: number;
+  @IsNumber()
+  amount: number;
 
-    @IsString()
-    cost_type: string;
-  
+  @IsString()
+  cost_type: string;
 }
 
-export class UpdateProductsPartsDto extends PartialType(ProductsPartsDto){}
+export class UpdateProductsPartsDto extends PartialType(ProductsPartsDto) {}

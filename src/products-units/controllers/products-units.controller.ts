@@ -7,6 +7,7 @@ import {
   Put,
   NotFoundException,
   ParseIntPipe,
+  Delete,
 } from '@nestjs/common';
 
 import { ProductsUnitsService } from '../services/products-units.service';
@@ -14,38 +15,34 @@ import { ProductsUnitsDto, UpdateProductsUnitsDto } from '../dtos/products-units
 
 @Controller('products-units')
 export class ProductsUnitsController {
+  
   constructor(private readonly productsUnitsService: ProductsUnitsService) {}
 
   @Get()
   async findAll(): Promise<ProductsUnitsDto[]> {
-    return await this.productsUnitsService.findAll();
+    return this.productsUnitsService.findAll();
   }
 
   @Get(':id')
-  async findOne(@Param('id', ParseIntPipe) id: number): Promise<ProductsUnitsDto> {
-    const productUnit = await this.productsUnitsService.findOne(id); 
-    if (productUnit === null) {
-      throw new NotFoundException(`El producto con el id "${id}" no se encuentra`);
-    }
-    return productUnit;
+  async findOne(@Param('id') code: string): Promise<ProductsUnitsDto> {
+    return this.productsUnitsService.findOneByCode(code);
   }
 
   @Post()
-  async create(@Body() body: ProductsUnitsDto): Promise<ProductsUnitsDto> {    
-    try {
-      const newProductUnits = this.productsUnitsService.insert(body);    
-      return await newProductUnits;
-    } catch (error) {
-      console.error('error al crear la Unidad del producto', error);      
-      throw new NotFoundException(
-        'no se puede crear la Unidad del producto',
-        `${error}`,
-      );
-    }
+  async insert(@Body() data: ProductsUnitsDto[]): Promise<any> {
+    return this.productsUnitsService.insert(data);
   }
 
   @Put(':id')
-  async update (@Param('id', ParseIntPipe) id: number, @Body() body :UpdateProductsUnitsDto): Promise<UpdateProductsUnitsDto> {
-    return await this.productsUnitsService.update(id, body)
+  async update(
+    @Param('id') id: string,
+    @Body() changes: UpdateProductsUnitsDto,
+  ): Promise<UpdateProductsUnitsDto> {
+    return this.productsUnitsService.update(id, changes);
+  }
+
+  @Delete(':id')
+  async delete(@Param('id') id: string): Promise<ProductsUnitsDto> {
+    return this.productsUnitsService.delete(id);
   }
 }
