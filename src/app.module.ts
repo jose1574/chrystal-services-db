@@ -23,6 +23,7 @@ import { CoinModule } from './coin/coin.module';
 import { OriginModule } from './origin/origin.module';
 import { StatusModule } from './status/status.module';
 import { TechnicianModule } from './technician/technician.module';
+import { ProductsImageModule } from './products-image/products-image.module';
 
 @Module({
   imports: [ 
@@ -46,7 +47,8 @@ import { TechnicianModule } from './technician/technician.module';
     CoinModule,
     OriginModule,
     StatusModule,
-    TechnicianModule
+    TechnicianModule,
+    ProductsImageModule
   ],
   controllers: [AppController],
   providers: [AppService],
