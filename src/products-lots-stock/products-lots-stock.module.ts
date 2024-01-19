@@ -3,10 +3,12 @@ import { ProductsLotsStockController } from './controllers/products-lots-stock.c
 import { ProductsLotsStockService } from './services/products-lots-stock.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductsLotsStockEntity } from './entities/products-lots-stock.entity';
+import { ProductsLotsUnitsModule } from './products-lots-units/products-lots-units.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([ProductsLotsStockEntity])
+    TypeOrmModule.forFeature([ProductsLotsStockEntity]),
+    ProductsLotsUnitsModule
   ],
   controllers: [ProductsLotsStockController],
   providers: [ProductsLotsStockService]

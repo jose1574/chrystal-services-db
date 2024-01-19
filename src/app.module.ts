@@ -24,6 +24,9 @@ import { OriginModule } from './origin/origin.module';
 import { StatusModule } from './status/status.module';
 import { TechnicianModule } from './technician/technician.module';
 import { ProductsImageModule } from './products-image/products-image.module';
+import { ProductsLotsModule } from './products-lots/products-lots.module';
+import { ProductsLotsStockModule } from './products-lots-stock/products-lots-stock.module';
+import { ProductsLotsUnitsModule } from './products-lots-units/products-lots-units.module';
 
 @Module({
   imports: [ 
@@ -48,7 +51,10 @@ import { ProductsImageModule } from './products-image/products-image.module';
     OriginModule,
     StatusModule,
     TechnicianModule,
-    ProductsImageModule
+    ProductsImageModule,
+    ProductsLotsModule,
+    ProductsLotsStockModule,
+    ProductsLotsUnitsModule
   ],
   controllers: [AppController],
   providers: [AppService],

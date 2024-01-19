@@ -1,11 +1,11 @@
-import { PartialType } from "@nestjs/mapped-types";
-import { IsNumber, IsString } from "class-validator";
-import { LocationDto } from "src/locations/dtos/location.dto";
-import { ProductsLotsDto } from "src/products-lots/dtos/products-lots.dto";
-import { StoreDto } from "src/stores/dtos/store.dto";
+import { PartialType } from '@nestjs/mapped-types';
+import { IsNumber, IsString } from 'class-validator';
+import { LocationDto } from 'src/locations/dtos/location.dto';
+import { ProductsLotsDto } from 'src/products-lots/dtos/products-lots.dto';
+import { StoreDto } from 'src/stores/dtos/store.dto';
 
 export class ProductsLotsStockDto {
-    @IsString()
+  @IsString()
   main_correlative: ProductsLotsDto;
 
   @IsString()
@@ -24,4 +24,6 @@ export class ProductsLotsStockDto {
   committed_stock: number;
 }
 
-export class UpdateProductsLotsStockDto extends PartialType(ProductsLotsStockDto) {}
+export class UpdateProductsLotsStockDto extends PartialType(
+  ProductsLotsStockDto,
+) {}
