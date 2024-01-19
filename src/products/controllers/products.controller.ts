@@ -33,11 +33,12 @@ export class ProductsController {
   }
 
   @Post()
-  async insert(@Body() body: ProductsDto): Promise<any> {
+  async create(@Body() body: ProductsDto): Promise<any> {
     try {
-      const createNewProduct = this.productsService.insert(body);
-      return await createNewProduct;
+      const result = await this.productsService.insert(body);
+      return await result;
     } catch (error) {
+      console.error('ocurrio un error al insertar los datos: ', error);      
       throw new NotFoundException(
         'no se puede insertar el nuevo producto',
         `${error}`,
@@ -47,6 +48,7 @@ export class ProductsController {
 
   @Put(':id')
   async update(@Param('id') id: string, @Body() changes: UpdateProductDto):Promise<UpdateProductDto> {
-    return this.productsService.update(id, changes);
+    const result = await this.productsService.update(id, changes);
+    return result;
   }
 }

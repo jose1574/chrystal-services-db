@@ -1,6 +1,23 @@
 import { PartialType } from "@nestjs/mapped-types";
-import { IsString, IsNumber, IsBoolean } from "class-validator";
 
+import { IsString, IsNumber, IsBoolean } from "class-validator";
+import { CoinDto } from "src/coin/dtos/coin.dto";
+import { DepartmentDto } from "src/departments/dtos/department.dto";
+import { OriginDto } from "src/origin/dtos/origin.dto";
+import { StatusDto } from "src/status/dtos/status.dto";
+import { TaxesDto } from "src/taxes/dtos/taxes.dto";
+import { TaxesEntity } from "src/taxes/entities/taxes.entity";
+import { TechnicianDto } from "src/technician/dtos/technician.dto";
+
+
+/*
+'department',
+        'taxes',
+        'status',
+        'origin',
+        'technician',
+        'coin',
+*/
 export class ProductsDto {  
   @IsString()
   code: string;
@@ -21,7 +38,7 @@ export class ProductsDto {
   referenc: string;
 
   @IsString()
-  department: string;
+  department: DepartmentDto;
 
   @IsNumber()
   days_warranty: number;
@@ -30,7 +47,7 @@ export class ProductsDto {
   sale_tax: string;
 
   @IsString()
-  buy_tax: string;
+  buy_tax: TaxesDto;
 
   @IsNumber()
   rounding_type: number;
@@ -51,10 +68,10 @@ export class ProductsDto {
   maximal_sale: number;
 
   @IsString()
-  status: string;
+  status: StatusDto;
 
   @IsString()
-  origin: string;
+  origin: OriginDto;
 
   @IsBoolean()
   take_department_utility: boolean;
@@ -72,7 +89,7 @@ export class ProductsDto {
   product_type: string;
 
   @IsString()
-  technician: string;
+  technician: TechnicianDto;
 
   @IsBoolean()
   request_technician: boolean;
@@ -87,7 +104,7 @@ export class ProductsDto {
   request_amount: boolean;
 
   @IsString()
-  coin: string;
+  coin: CoinDto;
 
   @IsBoolean()
   allow_negative_stock: boolean;

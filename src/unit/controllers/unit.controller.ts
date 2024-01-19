@@ -30,13 +30,14 @@ export class UnitController {
     };
 
     @Post()
-    async insert(@Body() body: UnitDto): Promise<UnitDto> {
+    async create(@Body() body: UnitDto): Promise<UnitDto> {
         try {
-            const unit = this.unitService.insert(body);
+            const unit = this.unitService.insert(body);        
             return await unit;
           } catch (err) {
+            console.error('error al crear la unidad');            
             throw new NotFoundException(
-              'no se puede insertar la nuevo dato',
+              'error, no se puede crear la unidad',
               `${err}`,
             );
           }

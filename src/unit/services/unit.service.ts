@@ -21,7 +21,7 @@ export class UnitService {
 
   async insert(data: UnitDto): Promise<any> {
     const newData = this.unitRepo.create(data);
-    return await this.unitRepo.insert(newData);
+    return await this.unitRepo.save(newData);
   }
 
   async update(id: string, changes: UpdateUnitDto): Promise<any> {

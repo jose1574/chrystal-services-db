@@ -27,7 +27,7 @@ export class ProductsCodesService {
 
   async create(data: ProductCodeDto): Promise<any> {
     const newData = this.productsCodeRepo.create(data)
-    return this.productsCodeRepo.insert(newData)
+    return this.productsCodeRepo.save(newData)
   }
 
   async update(

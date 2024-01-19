@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { Repository } from 'typeorm';
-import { ProductsUnitEntity } from '../entities/products-units.dto';
+import { ProductsUnitEntity } from '../entities/products-units.entity';
 import {
   ProductsUnitsDto,
   UpdateProductsUnitsDto,
@@ -15,20 +15,20 @@ export class ProductsUnitsService {
     private readonly productsUnitsRepo: Repository<ProductsUnitEntity>,
   ) {}
 
-  async findAll(): Promise<ProductsUnitsDto[]> {
+  async findAll(): Promise<any> {
     return this.productsUnitsRepo.find();
   }
 
-  async findOne(id: number): Promise<ProductsUnitsDto> {
+  async findOne(id: number): Promise<any> {
     return this.productsUnitsRepo.findOneBy({correlative: id});
   }
 
-  async insert(body: ProductsUnitsDto): Promise<any> {
-    const newProduct = await this.productsUnitsRepo.create(body); 
-    return this.productsUnitsRepo.insert(newProduct);
+  async insert(data: any): Promise<any> {
+    const newProduct = this.productsUnitsRepo.create(data); 
+    return this.productsUnitsRepo.save(newProduct);
   }
 
-  async update(id: number, changes: UpdateProductsUnitsDto): Promise<UpdateProductsUnitsDto> {
+  async update(id: number, changes: any): Promise<any> {
     const productUnit = await this.findOne(id);
     if (!productUnit) {
       throw new NotFoundException(`El id ${id} no existe`);

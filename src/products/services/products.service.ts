@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { ProductEntity } from '../entities/product.entity';
 import { ProductsDto, UpdateProductDto } from '../dtos/product.dto';
+import { ProductCodeDto } from 'src/products-codes/dtos/products.codes.dtos';
 
 @Injectable()
 export class ProductsService {
@@ -21,16 +22,19 @@ export class ProductsService {
   }
 
   async insert(data: ProductsDto): Promise<any> {
-    const newProduct = this.productRepo.create(data);
-    return this.productRepo.insert(newProduct);
+    const result = this.productRepo.create(data);
+    return this.productRepo.save(result);
   }
 
-  async update(id: string, changes: UpdateProductDto): Promise<UpdateProductDto> {
-    const product = await this.findOne(id);
-    if (!product) {
+  async update(
+    id: string,
+    changes: UpdateProductDto,
+  ): Promise<UpdateProductDto> {
+    const result = await this.findOne(id);
+    if (!result) {
       throw new NotFoundException(`producto con el id ${id} no existe`);
     }
-    this.productRepo.merge(product, changes)
-    return this.productRepo.save(product);
+    this.productRepo.merge(result, changes);
+    return this.productRepo.save(result);
   }
 }

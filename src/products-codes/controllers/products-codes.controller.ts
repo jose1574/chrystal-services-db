@@ -25,12 +25,13 @@ export class ProductsCodesController {
   }
 
   @Post()
-  async insertNewCode(@Body() body: ProductCodeDto): Promise<ProductCodeDto> {
+  async create(@Body() body: ProductCodeDto): Promise<ProductCodeDto> {
     try {
       const newCodeProduct = await this.productsCodesService.create(body);
       return newCodeProduct;
-    } catch (err){
-      throw new NotFoundException('Error inserting product code', `${err}`);
+    } catch (error){
+      console.error('error al crear el producto ', error);      
+      throw new NotFoundException('Error inserting product code', `${error}`);
     }
   }
 

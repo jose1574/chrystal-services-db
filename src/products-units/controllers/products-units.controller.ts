@@ -31,13 +31,14 @@ export class ProductsUnitsController {
   }
 
   @Post()
-  async insert(@Body() body: ProductsUnitsDto): Promise<ProductsUnitsDto> {
+  async create(@Body() body: ProductsUnitsDto): Promise<ProductsUnitsDto> {    
     try {
-      const newProductUnits = this.productsUnitsService.insert(body);
+      const newProductUnits = this.productsUnitsService.insert(body);    
       return await newProductUnits;
     } catch (error) {
+      console.error('error al crear la Unidad del producto', error);      
       throw new NotFoundException(
-        'no se puede insertar el nuevo producto',
+        'no se puede crear la Unidad del producto',
         `${error}`,
       );
     }

@@ -13,8 +13,8 @@ import { ConfigService, ConfigModule } from '@nestjs/config';
         port: configService.get('DB_PORT'),
         username: configService.get('DB_USER'),
         password: configService.get('DB_PASSWORD'),
-        database: configService.get('DB_NAME2'),
-        retryDelay: 3000,
+        database: configService.get('DB_NAME'),
+        retryDelay: 3001,
         autoLoadEntities: true,
       }),
     })]

@@ -4,7 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import { ValidationPipe } from '@nestjs/common';
 
 const configService = new ConfigService();
-const port =  configService.get('SERVER_PORT');
+const port =  configService.get('SERVER_PORT'); 
   ;
 
 async function bootstrap() {

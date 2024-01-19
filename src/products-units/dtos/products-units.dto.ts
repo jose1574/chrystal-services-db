@@ -1,9 +1,9 @@
-import { IsString, IsNumber, IsBoolean, IsEmpty, MaxLength } from "class-validator";
+import { IsString, IsNumber, IsBoolean } from "class-validator";
 import { PartialType } from "@nestjs/mapped-types";
 
 
 export class ProductsUnitsDto {
-  @IsEmpty()
+  @IsNumber()
   correlative: number;
 
   @IsString()
