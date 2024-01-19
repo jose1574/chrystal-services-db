@@ -7,38 +7,68 @@ import {
   ProductCodeDto,
   UpdateProductCodeDto,
 } from '../dtos/products.codes.dtos';
-import { ProductEntity } from 'src/products/entities/product.entity';
 
 @Injectable()
 export class ProductsCodesService {
   constructor(
     @InjectRepository(ProductCodeEntity)
-    private readonly productsCodeRepo: Repository<ProductCodeEntity>,
+    private readonly productRepo: Repository<ProductCodeEntity>,
   ) {}
 
-
   async findAll(): Promise<ProductCodeDto[]> {
-    return await this.productsCodeRepo.find();
+    return this.productRepo.find();
   }
 
-  async findOne(id: string): Promise<ProductCodeDto> {
-    return await this.productsCodeRepo.findOneBy({ other_code: id });
+  async findOneByCode(other_code: string): Promise<ProductCodeDto> {
+    const product = await this.productRepo.findOne({ where: { other_code } });
+
+    if (!product) {
+      throw new NotFoundException(
+        `product con el codigo ${other_code} no se encuentra.`,
+      );
+    }
+    return product;
   }
 
-  async create(data: ProductCodeDto): Promise<any> {
-    const newData = this.productsCodeRepo.create(data)
-    return this.productsCodeRepo.save(newData)
+  async insert(data: ProductCodeDto[]): Promise<any> {
+    try {
+      const newInstance = this.productRepo.create(data);
+      const addNew = await this.productRepo.save(newInstance);
+      return addNew;
+    } catch (err) {
+      throw new NotFoundException(
+        `Error al insertar el nuevo product ${JSON.stringify(err)}`,
+      );
+    }
   }
 
   async update(
     id: string,
     changes: UpdateProductCodeDto,
   ): Promise<UpdateProductCodeDto> {
-    const productCode = await this.findOne(id);
-    if (!productCode) {
-      throw new NotFoundException('Product Code not found');
+    try {
+      const search = await this.findOneByCode(id);
+
+      if (search!) {
+        throw new NotFoundException(`product con el id ${id} no se encuentra`);
+      }
+      const merge = this.productRepo.merge(search, changes);
+      const updateProduct = this.productRepo.save(merge);
+
+      return updateProduct;
+    } catch (error) {
+      throw new NotFoundException(
+        `Error al actualizar la taxes ${JSON.stringify(error)}`,
+      );
     }
-    this.productsCodeRepo.merge(productCode, changes);
-    return this.productsCodeRepo.save(productCode);
+  }
+
+  async delete(id: string): Promise<ProductCodeDto> {
+    const taxesDelete = await this.findOneByCode(id);
+    if (!taxesDelete) {
+      throw new NotFoundException(`taxes con ID ${id} no encontrado`);
+    }
+    await this.productRepo.remove(taxesDelete);
+    return taxesDelete;
   }
 }

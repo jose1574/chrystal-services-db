@@ -1,47 +1,35 @@
-import { Controller, Get, Post, Body, NotFoundException, Param, Put } from '@nestjs/common';
+import { Controller, Get, Post, Delete, Body, Param, Put } from '@nestjs/common';
 
 import { ProductsCodesService } from '../services/products-codes.service';
 import { ProductCodeDto, UpdateProductCodeDto } from '../dtos/products.codes.dtos';
 @Controller('products-codes')
-export class ProductsCodesController {
-  constructor(private readonly productsCodesService: ProductsCodesService) {}
+export class ProductsCodesController { constructor(private readonly productCodeService: ProductsCodesService) {}
 
-  @Get()
-  async findAllCodes() {
-    return this.productsCodesService.findAll();
-  }
+@Get()
+async findAll(): Promise<ProductCodeDto[]> {
+  return this.productCodeService.findAll();
+}
 
-  @Get(':id')
-  async findProduct(@Param('id') id: string) {
-    const product = await this.productsCodesService.findOne(id);
-    if (product) {
-      return product;
-    } else {
-      throw new NotFoundException(
-        `no se encuentra el codigo del producto con el id: ${id}`,
-        'No encontrado',
-      );
-    }
-  }
+@Get(':id')
+async findOne(@Param('id') code: string): Promise<ProductCodeDto> {
+  return this.productCodeService.findOneByCode(code);
+}
 
-  @Post()
-  async create(@Body() body: ProductCodeDto): Promise<ProductCodeDto> {
-    try {
-      const newCodeProduct = await this.productsCodesService.create(body);
-      return newCodeProduct;
-    } catch (error){
-      console.error('error al crear el producto ', error);      
-      throw new NotFoundException('Error inserting product code', `${error}`);
-    }
-  }
+@Post()
+async insert(@Body() data: ProductCodeDto[]): Promise<any> {
+  return this.productCodeService.insert(data);
+}
 
-  @Put(':id')
-  async update(@Param('id') id: string, @Body() changes: UpdateProductCodeDto): Promise<UpdateProductCodeDto> {
-    try{
-    const result = await  this.productsCodesService.update(id, changes);
-    return result
+@Put(':id')
+async update(
+  @Param('id') id: string,
+  @Body() changes: UpdateProductCodeDto,
+): Promise<UpdateProductCodeDto> {
+  return this.productCodeService.update(id, changes);
+}
 
-    }catch(err) {
-      throw new NotFoundException(`error al actualizar el código de producto`,`${err}`);}
-    }
+@Delete(':id')
+async delete(@Param('id') id: string): Promise<ProductCodeDto> {
+  return this.productCodeService.delete(id);
+}
 }

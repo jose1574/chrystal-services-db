@@ -1,9 +1,10 @@
-import { PartialType } from "@nestjs/mapped-types";
-import { IsString } from "class-validator";
+import { PartialType } from '@nestjs/mapped-types';
+import { IsString } from 'class-validator';
+import { ProductsDto } from 'src/products/dtos/product.dto';
 
 export class ProductCodeDto {
   @IsString()
-  main_code: string;
+  main_code: ProductsDto;
 
   @IsString()
   other_code: string;

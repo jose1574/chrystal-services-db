@@ -17,14 +17,14 @@ export class TaxesService {
       }
     
       async findOneByCode(code: string): Promise<TaxesDto> {
-        const taxe = await this.taxesRepository.findOne({ where: { code } });
+        const tax = await this.taxesRepository.findOne({ where: { code } });
     
-        if (!taxe) {
+        if (!tax) {
           throw new NotFoundException(
-            `taxes con el codigo ${code} no se encuentra.`,
+            `tax con el codigo ${code} no se encuentra.`,
           );
         }
-        return taxe;
+        return tax;
       }
     
       async insert(data: TaxesDto[]): Promise<any> {
@@ -34,7 +34,7 @@ export class TaxesService {
           return addNew;
         } catch (err) {
           throw new NotFoundException(
-            `Error al insertar la taxes ${JSON.stringify(err)}`,
+            `Error al insertar la tax ${JSON.stringify(err)}`,
           );
         }
       }
@@ -52,7 +52,7 @@ export class TaxesService {
           return updatetaxes;
         } catch (error) {
           throw new NotFoundException(
-            `Error al actualizar la taxes ${JSON.stringify(error)}`,
+            `Error al actualizar la tax ${JSON.stringify(error)}`,
           );
         }
       }
