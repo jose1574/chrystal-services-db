@@ -27,6 +27,13 @@ import { ProductsImageModule } from './products-image/products-image.module';
 import { ProductsLotsModule } from './products-lots/products-lots.module';
 import { ProductsLotsStockModule } from './products-lots-stock/products-lots-stock.module';
 import { ProductsLotsUnitsModule } from './products-lots-units/products-lots-units.module';
+import { ProductsProviderModule } from './products-provider/products-provider.module';
+import { ProviderModule } from './provider/provider.module';
+import { CitysModule } from './citys/citys.module';
+import { CountrysModule } from './countrys/countrys.module';
+import { ProvincesModule } from './provinces/provinces.module';
+import { TownsModule } from './towns/towns.module';
+import { PersonTypeModule } from './person_type/person_type.module';
 
 @Module({
   imports: [ 
@@ -54,7 +61,14 @@ import { ProductsLotsUnitsModule } from './products-lots-units/products-lots-uni
     ProductsImageModule,
     ProductsLotsModule,
     ProductsLotsStockModule,
-    ProductsLotsUnitsModule
+    ProductsLotsUnitsModule,
+    ProductsProviderModule,
+    ProviderModule,
+    CitysModule,
+    CountrysModule,
+    ProvincesModule,
+    TownsModule,
+    PersonTypeModule
   ],
   controllers: [AppController],
   providers: [AppService],
