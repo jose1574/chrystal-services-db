@@ -36,6 +36,7 @@ import { TownsModule } from './towns/towns.module';
 import { PersonTypeModule } from './person_type/person_type.module';
 import { ProductsSerialModule } from './products-serial/products-serial.module';
 import { ProductsStatisticsModule } from './products-statistics/products-statistics.module';
+import { ProductsCommissionModule } from './products-commission/products-commission.module';
 
 @Module({
   imports: [ 
@@ -72,7 +73,8 @@ import { ProductsStatisticsModule } from './products-statistics/products-statist
     TownsModule,
     PersonTypeModule,
     ProductsSerialModule,
-    ProductsStatisticsModule
+    ProductsStatisticsModule,
+    ProductsCommissionModule
   ],
   controllers: [AppController],
   providers: [AppService],
